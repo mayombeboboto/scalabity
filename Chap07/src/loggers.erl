@@ -11,6 +11,12 @@ init(standard_io) ->
 init({file, File}) ->
     {ok, FilePid} = file:open(File, write),
     {ok, {FilePid, 1}};
+init({standard_io, {FilePid, Count}}) when is_pid(FilePid) ->
+    file:close(FilePid),
+    {ok, {standard_io, Count}};
+init({File, {standard_io, Count}}) ->
+    {ok, FilePid} = file:open(File, write),
+    {ok, {FilePid, Count}};
 init(Args) ->
     {error, {args, Args}}.
 
@@ -25,6 +31,8 @@ handle_info(Event, {IO, Count}) ->
     print(IO, Count, Event, "Unknown"),
     {ok, {IO, Count+1}}.
 
+terminate(swap, {Type, Count}) ->
+    {Type, Count};
 terminate(_Reason, {standard_io, Count}) ->
     {count, Count};
 terminate(_Reason, {FilePid, Count}) ->
