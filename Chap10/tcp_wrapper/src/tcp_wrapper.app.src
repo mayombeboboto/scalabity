@@ -1,8 +1,8 @@
-{application, mutex,
+{application, tcp_wrapper,
  [{description, "An OTP application"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, {mutex_app, []}},
+  {mod, {tcp_wrapper_app, []}},
   {applications,
    [kernel,
     stdlib

@@ -1,16 +1,16 @@
 %%%-------------------------------------------------------------------
-%% @doc mutex public API
+%% @doc tcp_wrapper public API
 %% @end
 %%%-------------------------------------------------------------------
 
--module(mutex_app).
+-module(tcp_wrapper_app).
 
 -behaviour(application).
 
 -export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
-    mutex_sup:start_link().
+    tcp_wrapper_sup:start_link().
 
 stop(_State) ->
     ok.
